@@ -1,3 +1,5 @@
 Lib/
 Scripts/
 Include/
+.idea
+__pycache__/
