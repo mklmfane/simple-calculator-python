@@ -68,4 +68,3 @@ if __name__ == '__main__':
         sys.exit(1)
 
     print("✅ All pytest tests passed. Starting production server ...")
-    serve(app, host='127.0.0.1', port=5000)

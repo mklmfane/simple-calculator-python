@@ -4,3 +4,4 @@ Include/
 .idea
 __pycache__/
 pyvenv.cfg
+.pytest_cache/
