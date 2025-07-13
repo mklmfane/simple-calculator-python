@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Simple Calculator Application</title>
+<style>
+  body {
+    background: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .calculator {
+    background: #000;
+    padding: 20px;
+    border-radius: 25px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+  }
+  .display {
+    color: #fff;
+    font-size: 2em;
+    text-align: right;
+    margin-bottom: 10px;
+    height: 40px;
+    overflow-x: auto;
+  }
+  .buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 70px);
+    grid-gap: 10px;
+  }
+  button {
+    height: 70px;
+    font-size: 1.4em;
+    border: none;
+    border-radius: 35px;
+    color: #fff;
+    cursor: pointer;
+  }
+  .gray { background: #a5a5a5; color: #000; }
+  .orange { background: #ff9500; }
+  .dark { background: #333; }
+</style>
+</head>
+<body>
+<div class="calculator">
+  <div class="display" id="display">0</div>
+  <div class="buttons">
+    <button class="gray" onclick="clearDisplay()">AC</button>
+    <button class="gray" onclick="append('(')">(</button>
+    <button class="gray" onclick="append(')')">)</button>
+    <button class="orange" onclick="append('/')">/</button>
+
+    <button class="dark" onclick="append('7')">7</button>
+    <button class="dark" onclick="append('8')">8</button>
+    <button class="dark" onclick="append('9')">9</button>
+    <button class="orange" onclick="append('*')">*</button>
+
+    <button class="dark" onclick="append('4')">4</button>
+    <button class="dark" onclick="append('5')">5</button>
+    <button class="dark" onclick="append('6')">6</button>
+    <button class="orange" onclick="append('-')">-</button>
+
+    <button class="dark" onclick="append('1')">1</button>
+    <button class="dark" onclick="append('2')">2</button>
+    <button class="dark" onclick="append('3')">3</button>
+    <button class="orange" onclick="append('+')">+</button>
+
+    <button class="dark" style="grid-column: span 2;" onclick="append('0')">0</button>
+    <button class="dark" onclick="append('.')">.</button>
+    <button class="orange" onclick="calculateResult()">=</button>
+
+    <button class="gray" style="grid-column: span 4;" onclick="closeCalculator()">Close Calculator</button>
+  </div>
+</div>
+
+<script>
+  let display = document.getElementById('display');
+  let expression = '';
+
+  function append(value) {
+    expression += value;
+    display.textContent = expression;
+  }
+
+  function clearDisplay() {
+    expression = '';
+    display.textContent = '0';
+  }
+
+  async function calculateResult() {
+    try {
+      const response = await fetch('/calculate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ expression })
+      });
+      const data = await response.json();
+      if (data.result !== undefined) {
+        expression = data.result.toString();
+        display.textContent = expression;
+      } else {
+        display.textContent = data.error;
+      }
+    } catch (err) {
+      display.textContent = 'Error';
+    }
+  }
+
+  async function closeCalculator() {
+    try {
+      const response = await fetch('/shutdown', { method: 'POST' });
+      const data = await response.json();
+      document.body.innerHTML = `<h2 style="text-align:center;">${data.message || "Calculator closed. You can close this tab now."}</h2>`;
+      window.close(); // will only work if opened via window.open()
+    } catch (err) {
+      document.body.innerHTML = "<h2 style='text-align:center;'>Calculator closed. You can close this tab now.</h2>";
+    }
+  }
+</script>
+</body>
+</html>
