@@ -240,8 +240,10 @@ Test results:
 21                  result = eval(expression, {"__builtins__": None}, {})
 22              except Exception as e:
 
+
+### Claculator should show up
+![img.png](img.png)
 ---
 
 ## 📜 License
-
 MIT License - free to use and modify.
