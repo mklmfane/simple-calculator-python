@@ -241,7 +241,7 @@ Test results:
 22              except Exception as e:
 
 
-### Calculator should show up
+### Calculator should show up in the form of a dettached container to be up and running. 
 
 docker ps -a
 CONTAINER ID   IMAGE                   COMMAND                  CREATED         STATUS         PORTS                      NAMES
