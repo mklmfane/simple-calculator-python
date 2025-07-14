@@ -4,7 +4,7 @@ import re
 import subprocess
 import sys
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static")
 
 class Calculator:
     SAFE_PATTERN = re.compile(r"[0-9+\-*/().% ]+")

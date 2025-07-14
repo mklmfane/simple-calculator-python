@@ -5,4 +5,4 @@ services:
       - "127.0.0.1:5000:5000"
     environment:
       - PYTHONUNBUFFERED=1
-    command: gunicorn -w 4 -b 0.0.0.0:5000 main:app
+    command: gunicorn -w 4 -b 0.0.0.0:5000 simple_calculator.main:app
