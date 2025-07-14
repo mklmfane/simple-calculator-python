@@ -241,7 +241,12 @@ Test results:
 22              except Exception as e:
 
 
-### Claculator should show up
+### Calculator should show up
+
+docker ps -a
+CONTAINER ID   IMAGE                   COMMAND                  CREATED         STATUS         PORTS                      NAMES
+aa919445c73d   simple-calculator-app   "gunicorn -w 4 -b 0.…"   3 minutes ago   Up 3 minutes   127.0.0.1:5000->5000/tcp   simple-calculator-app-1
+
 ![img.png](img.png)
 ---
 
