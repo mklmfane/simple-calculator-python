@@ -30,8 +30,10 @@ jobs:
 
       - name: Test calculator add API with curl
         run: |
-          echo "Testing calculator add API..."
+          echo "Testing calculator API access..."
           curl -X GET "http://127.0.0.1:5000"
+          echo "Testing addition for calculator API..."
+          curl -Method POST -Uri "http://127.0.0.1:5000/calculate" -ContentType "application/json" -Body '{"expression":"5+3"}'
 
       - name: Tear down Docker Compose stack and remove volumes
         run: docker compose down -v
