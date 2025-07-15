@@ -1,5 +1,4 @@
 name: Build and SAST with Bandit
-
 on:
   push:
     branches:
